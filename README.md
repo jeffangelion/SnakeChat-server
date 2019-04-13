@@ -1,0 +1,2 @@
+# SnakeChat-server
+SnakeChat server
