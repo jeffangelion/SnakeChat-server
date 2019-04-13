@@ -5,18 +5,18 @@ server = http.createServer(app),
 io = require('socket.io').listen(server);
 app.get('/', (req, res) => {
 
-res.send('SnakeChat server is running')
+// res.send('SnakeChat server is running')
 });
 io.on('connection', (socket) => {
 
 socket.on('join', function(userNickname) {
-        console.log(userNickname +" has joined the chat "  );
+        // console.log(userNickname +" has joined the chat "  );
         socket.broadcast.emit('userjoinedthechat',userNickname +" has joined the chat ");
     });
 
 socket.on('messagedetection', (senderNickname,messageContent) => {
     //log the message in console 
-    console.log(senderNickname+" :" +messageContent)
+    // console.log(senderNickname+" : " +messageContent)
     //create a message object 
     let  message = {"message":messageContent, "senderNickname":senderNickname}
     // send the message to the client side  
@@ -24,11 +24,11 @@ socket.on('messagedetection', (senderNickname,messageContent) => {
     });
     
 socket.on('disconnect', function() {
-    console.log("user has left the chat")
+    // console.log("user has left the chat")
     socket.broadcast.emit("userdisconnect", "user has left the chat") 
 });
 });
 
 server.listen(3000,()=>{
-console.log('SnakeChat read-only mode:');
+// console.log('SnakeChat read-only mode:');
 });
