@@ -21,7 +21,6 @@ socket.on('messagedetection', (senderNickname,messageContent) => {
     });
     
 socket.on('disconnect', function() {
-    // console.log("user has left the chat")
     socket.broadcast.emit("userdisconnect", "user has left the chat") 
 });
 });
