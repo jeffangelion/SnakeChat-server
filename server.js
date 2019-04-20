@@ -15,8 +15,7 @@ socket.on('join', function(userNickname) {
 
 socket.on('messagedetection', (senderNickname,messageContent) => {
     //create a message object 
-    timestamp = Date.now();
-    let  message = {"message":messageContent, "senderNickname":senderNickname, "timestamp":timestamp}
+    let  message = {"message":messageContent, "senderNickname":senderNickname}
     // send the message to the client side  
     io.emit('message', message );
     });
