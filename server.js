@@ -3,10 +3,6 @@ http = require('http'),
 app = express(),
 server = http.createServer(app),
 io = require('socket.io').listen(server);
-app.get('/', (req, res) => {
-
-res.send('SnakeChat server is running')
-});
 io.on('connection', (socket) => {
 
 socket.on('join', function(userNickname) {
@@ -14,9 +10,9 @@ socket.on('join', function(userNickname) {
     });
 
 socket.on('messagedetection', (senderNickname,messageContent) => {
-    //create a message object 
+    //create a message
     let  message = {"message":messageContent, "senderNickname":senderNickname}
-    // send the message to the client side  
+    // send the message to the clients
     io.emit('message', message );
     });
     
