@@ -1,5 +1,8 @@
 const express = require('express'),
 http = require('http'),
+//fs = require('fs'), //EXPERIMENTAL
+config = require('./config'), //EXPERIMENTAL
+serverPort = config.port,
 app = express(),
 server = http.createServer(app),
 io = require('socket.io').listen(server);
@@ -10,9 +13,9 @@ socket.on('join', function(userNickname) {
     });
 
 socket.on('messagedetection', (senderNickname,messageContent) => {
-    //create a message
+    //create message
     let  message = {"message":messageContent, "senderNickname":senderNickname}
-    // send the message to the clients
+    //send message to clients
     io.emit('message', message );
     });
     
@@ -21,5 +24,5 @@ socket.on('disconnect', function() {
 });
 });
 
-server.listen(3000,()=>{
+server.listen(serverPort,()=>{
 });
