@@ -1,10 +1,20 @@
 const express = require('express'),
-http = require('http'),
-//fs = require('fs'), //EXPERIMENTAL
-config = require('./config'), //EXPERIMENTAL
+fs = require('fs'),
+config = require('./config'),
 serverPort = config.port,
-app = express(),
-server = http.createServer(app),
+app = express();
+if (config.secure)
+{
+    options = {
+        key: fs.readFileSync(config.secure_key),
+        cert: fs.readFileSync(config.secure_cert)
+    };
+    server = require('https').createServer(app);
+    console.log('SECURED');
+} else {
+    server = require('http').createServer(app);
+    console.log('H4CK3D')
+}
 io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
 

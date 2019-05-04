@@ -1,4 +1,6 @@
 {
     "port": "3000",
-    "secure": true
+    "secure": false,
+    "secure_key": "./key.pem",
+    "secure_cert": "./cert.pem"
 } 
