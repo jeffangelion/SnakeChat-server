@@ -1,27 +1,32 @@
 const express = require('express'),
 fs = require('fs'),
+http = require('http'),
+https = require('https'),
 config = require('./config'),
 secure = config.secure,
 serverPort = config.port,
 app = express();
+app.get('/', (req, res) => {
+    res.send('SnakeChat server is running')
+});
 if (secure)
 {
     options = {
         key: fs.readFileSync(config.secure_key),
         cert: fs.readFileSync(config.secure_cert)
     };
-    server = require('https').createServer(app);
+    server = https.createServer(options, app);
 } else {
-    server = require('http').createServer(app);
+    server = http.createServer(app);
 }
 io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
 
 socket.on('join', function(userNickname) {
-        socket.broadcast.emit('userjoinedthechat',userNickname +" has joined the chat ");
+        socket.broadcast.emit('userjoin',userNickname +" has joined the chat ");
     });
 
-socket.on('messagedetection', (senderNickname,messageContent) => {
+socket.on('sendmessage', (senderNickname,messageContent) => {
     //create message
     let  message = {"message":messageContent, "senderNickname":senderNickname}
     //send message to clients
