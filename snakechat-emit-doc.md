@@ -3,12 +3,14 @@ Example: `emmiterName (parameters)`
 ## Server-side:
 ```
 join (userNickname)
-sendmessage (senderNickname,messageContent)
-disconnect (null)
+sendMessage (senderNickname,messageContent)
+disconnect (null) //outdated
+exit (userNickname)
 ```
 ## Client-side:
 ```
-userjoin (userNickname)
+userJoin (userNickname)
 message (message (messageContent, senderNickname))
-userdisconnect (null)
+userDisconnect (null) //outdated
+userExit (userNickname)
 ```

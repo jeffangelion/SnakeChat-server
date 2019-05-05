@@ -23,19 +23,25 @@ io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
 
 socket.on('join', function(userNickname) {
-        socket.broadcast.emit('userjoin',userNickname +" has joined the chat ");
-    });
+    // socket.broadcast.emit('userjoin',userNickname +" has joined the chat");
+    socket.broadcast.emit('userJoin',userNickname);
+});
 
-socket.on('sendmessage', (senderNickname,messageContent) => {
+socket.on('sendMessage', (senderNickname,messageContent) => {
     //create message
     let  message = {"message":messageContent, "senderNickname":senderNickname}
     //send message to clients
     io.emit('message', message );
-    });
-    
-socket.on('disconnect', function() {
-    socket.broadcast.emit("userdisconnect", "user has left the chat") 
 });
+    
+socket.on('exit', function(userNickname) {
+    // socket.broadcast.emit('userexit', userNickname +" has left the chat");
+    socket.broadcast.emit('userExit', userNickname);
+});
+//OUTDATED
+// socket.on('disconnect', function() {
+//     socket.broadcast.emit("userDisconnect", "user has left the chat") 
+// });
 });
 
 server.listen(serverPort,()=>{
