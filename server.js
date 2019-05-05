@@ -6,9 +6,11 @@ config = require('./config'),
 secure = config.secure,
 serverPort = config.port,
 app = express();
+//Debug output
 app.get('/', (req, res) => {
-    res.send('SnakeChat server is running')
+    res.send(''+Math.floor(Date.now()/1000))
 });
+//
 if (secure)
 {
     options = {

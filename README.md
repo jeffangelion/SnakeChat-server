@@ -7,10 +7,10 @@ npm install express socket.io
 ## Generate your own self-signed certificate:
 ```
 openssl genrsa 2048 > key.pem
-openssl req -new -x509 -nodes -sha256 -days 30 -key key.pem -out cert.pem
+openssl req -new -x509 -nodes -sha256 -days [CHANGEME] -key key.pem -out cert.pem
 ```
 ## SnakeChat emitters documentation
-Example: `emmiterName (parameters)`
+Example: ```emmiterName (parameters)```
 ### Server-side:
 ```
 join (userNickname)
