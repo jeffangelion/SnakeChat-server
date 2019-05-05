@@ -1,10 +1,10 @@
-#SnakeChat emitter documentation
+# SnakeChat emitter documentation
 Example: `emmiterName (parameters)`
-##Server-side:
+## Server-side:
 `join (userNickname)`
 `sendmessage (senderNickname,messageContent)`
 `disconnect (null)`
-##Client-side:
+## Client-side:
 `userjoin (userNickname)`
 `message (message (messageContent, senderNickname))`
 `userdisconnect (null)`
