@@ -10,16 +10,16 @@ openssl genrsa 2048 > key.pem
 openssl req -new -x509 -nodes -sha256 -days [CHANGEME] -key key.pem -out cert.pem
 ```
 ## SnakeChat emitters documentation
-Example: ```emmiterName (parameters)```
+Example: ```emitterName (parameters)```
 ### Server-side:
 ```
-join (userNickname)
-sendMessage (senderNickname,messageContent)
-exit (userNickname)
+join (username)
+sendMessage (username,messageContent)
+exit (username)
 ```
 ### Client-side:
 ```
-userJoin (userNickname)
-message (message (messageContent, senderNickname))
-userExit (userNickname)
+userJoin (username)
+message (message (messageContent, username))
+userExit (username)
 ```

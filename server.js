@@ -13,36 +13,39 @@ app.get('/', (req, res) => {
 //
 if (secure)
 {
-    options = {
-        key: fs.readFileSync(config.secure_key),
-        cert: fs.readFileSync(config.secure_cert)
-    };
-    server = https.createServer(options, app);
+    server = https.createServer({
+        key: fs.readFileSync(config.key),
+        cert: fs.readFileSync(config.cert)
+    }, app);
 } else {
     server = http.createServer(app);
 }
 io = require('socket.io').listen(server);
 io.on('connection', (socket) => {
 
-socket.on('join', function(userNickname) {
-    // socket.broadcast.emit('userjoin',userNickname +" has joined the chat");
-    socket.broadcast.emit('userJoin',userNickname);
+socket.on('join', function(username) {
+    // socket.broadcast.emit('userjoin',username +" has joined the chat");
+    socket.broadcast.emit('userJoin',username);
 });
 
-socket.on('sendMessage', (senderNickname,messageContent) => {
+socket.on('sendMessage', (username,messageContent) => {
     //create message
-    let  message = {"message":messageContent, "senderNickname":senderNickname}
+    let  message = {
+        "message":messageContent,
+        "username":username,
+        "timestamp":''+Math.floor(Date.now()/1000)
+    }
     //send message to clients
     io.emit('message', message );
 });
     
-socket.on('exit', function(userNickname) {
-    // socket.broadcast.emit('userexit', userNickname +" has left the chat");
-    socket.broadcast.emit('userExit', userNickname);
+socket.on('exit', function(username) {
+    // socket.broadcast.emit('userexit', username +" has left the chat");
+    socket.broadcast.emit('userExit', username);
 });
-//OUTDATED
+//    OUTDATED
 // socket.on('disconnect', function() {
-//     socket.broadcast.emit("userDisconnect", "user has left the chat") 
+//     socket.broadcast.emit("userDisconnect", "username has left the chat") 
 // });
 });
 
